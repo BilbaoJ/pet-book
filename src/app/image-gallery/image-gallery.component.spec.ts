@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { GalleryComponent } from './image-gallery.component';
 
@@ -8,10 +8,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { By } from '@angular/platform-browser';
 
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { Router } from '@angular/router';
+
+import { Location } from '@angular/common';
+
 describe('ImageGalleryComponent', () => {
   let component: GalleryComponent;
   let fixture: ComponentFixture<GalleryComponent>;
   let service: ImageService;
+  let router: Router;
+  let location: Location;
 
   @Pipe({name: 'filterimages'})
   class MockedFilterimagesPipe implements PipeTransform {
@@ -26,17 +34,24 @@ describe('ImageGalleryComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule.withRoutes([{path: 'image/:id', component: class Dummy{}}]) ],
       declarations: [ GalleryComponent, MockedFilterimagesPipe],
       providers: [ImageService]
     })
     .compileComponents();
 
     service = TestBed.inject(ImageService);
+
+    router = TestBed.inject(Router);
+
+    location = TestBed.inject(Location);
     
     spyOn(service, "getImages").and.returnValue([
       { "id": 1, "brand": "perro", "url": "assets/images/perro1.jpg" },
       { "id": 2, "brand": "perro", "url": "assets/images/perro2.jpg" },
       { "id": 3, "brand": "gato", "url": "assets/images/gato1.jpg" }]);
+
+      router.initialNavigation();
 
   }));
 
@@ -101,4 +116,15 @@ describe('ImageGalleryComponent', () => {
 
   }); 
 
+  it('Debe cambiar la URL cuando se hace click en una imagen', fakeAsync(() => {
+
+    let imagen = fixture.debugElement.query(By.css('a'));
+
+    imagen.nativeElement.click();
+
+    tick();
+
+    expect(location.path()).toBe('/image/1');
+
+  })); 
 });

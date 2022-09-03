@@ -29,7 +29,7 @@ describe('FilterimagesPipe', () => {
     expect(pipe).toBeTruthy();
   });
 
-  it('Debe filtar y devolver las imagenes de perros al buscar perros', () => {
+  it('Debe filtar y devolver un arreglo con las imagenes de perros al buscar "perro"', () => {
 
     let imagenesPerros = pipe.transform(service.getImages(), "perro");
 
@@ -37,7 +37,7 @@ describe('FilterimagesPipe', () => {
 
   });
 
-  it('Debe filtar y devolver las imagenes de gatos al buscar gatos', () => {
+  it('Debe filtar y devolver un arreglo con las imagenes de gatos al buscar "gato"', () => {
 
     let imagenesGatos = pipe.transform(service.getImages(), "gato");
 
@@ -45,7 +45,7 @@ describe('FilterimagesPipe', () => {
 
   });
 
-  it('Debe devolver todas las imagenes de los animales al buscar todos', () => {
+  it('Debe devolver un arreglo con todas las imagenes de los animales al buscar "all"', () => {
 
     let imagenes = pipe.transform(service.getImages(), "all");
 
@@ -53,7 +53,7 @@ describe('FilterimagesPipe', () => {
 
   });
 
-  it('No debe devolver nada al buscar otro animal diferente a gato y perro', () => {
+  it('Debe devolver un arreglo vacío al buscar otro animal diferente a gato y perro', () => {
 
     let imagenes = pipe.transform(service.getImages(), "Pajaro");
 
@@ -61,7 +61,7 @@ describe('FilterimagesPipe', () => {
 
   });
 
-  it('No debe devolver nada al buscar otras palabras diferentes a gato y perro', () => {
+  it('Debe devolver un arreglo vacío al buscar otras palabras diferentes a gato y perro', () => {
 
     let imagenes = pipe.transform(service.getImages(), "Carros");
 

@@ -26,19 +26,19 @@ describe('ImageDetailsComponent', () => {
     service = TestBed.inject(ImageService);
 
     spyOn(service, "getImage").and.
-    returnValues({ "id": 1, "brand": "perro", "url": "assets/images/perro1.jpg" });
-      
+    returnValue({ "id": 1, "brand": "perro", "url": "assets/images/perro1.jpg" });
+
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
 
     fixture = TestBed.createComponent(ImageDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
+  }));
 
-  });
-
-  it('Debería crearse el componente', () => {
+  it('Debe crearse el componente', () => {
 
     expect(component).toBeTruthy();
 
