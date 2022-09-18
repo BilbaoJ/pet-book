@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core'
 export class ImageService {    
     allImages = [];    
     
-    getImages() {    
-        return this.allImages = Imagesdelatils.slice(0);    
+    getImages() {   
+        this.allImages = Imagesdelatils.slice(0); 
+        return this.allImages;   
     }    
     
     getImage(id: number) {    
-        return Imagesdelatils.slice(0).find(Images => Images.id == id)    
+        return Imagesdelatils.slice(0).find(Images => Images.id === id)    
     }    
 }    
 const Imagesdelatils = [    
