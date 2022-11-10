@@ -22,3 +22,16 @@ steps:
     npm run build
   displayName: 'npm install, test and build'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarCloud'
+    organization: 'bilbaoj'
+    scannerMode: 'CLI'
+    configMode: 'file'
+
+- task: SonarCloudAnalyze@1
+  displayName: 'run sonarCloud'
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
